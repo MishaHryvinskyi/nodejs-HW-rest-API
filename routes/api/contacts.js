@@ -4,11 +4,17 @@ const {HttpError} = require("../api/helpers");
 const router = express.Router();
 const Joi = require("joi");
 
-const addSchema = Joi.object({
+const postSchema = Joi.object({
     name: Joi.string().required(),
     email: Joi.string().required(),
     phone: Joi.string().required(),
-})
+});
+
+const putSchema = Joi.object({
+  name: Joi.string(),
+  email: Joi.string(),
+  phone: Joi.string(),
+});
 
 
 router.get('/', async (req, res, next) => {
@@ -37,7 +43,7 @@ router.get("/:id", async (req, res, next) => {
 
 router.post('/', async (req, res, next) => {
   try{
-    const {error} = addSchema.validate(req.body);
+    const {error} = postSchema.validate(req.body);
     if(error) {
       throw HttpError(400, error.message);
     }
@@ -67,7 +73,7 @@ router.delete('/:id', async (req, res, next) => {
 
 router.put('/:id', async (req, res, next) => {
   try {
-    const {error} = addSchema.validate(req.body);
+    const {error} = putSchema.validate(req.body);
     if(error) {
       throw HttpError(400, error.message);
     }
