@@ -49,7 +49,7 @@ const updateContact = async (id, body) => {
  }
  contacts[index]  = { ...contacts[index], ...body };
   await fs.writeFile(contactsPath, JSON.stringify(contacts, null, 2));
-  return contacts[index]
+  return contacts[index];
 }
 
 module.exports = { 
