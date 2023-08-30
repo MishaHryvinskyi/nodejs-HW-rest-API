@@ -1,14 +1,12 @@
 const mongoose = require('mongoose')
-const dotenv = require('dotenv')
+// const dotenv = require('dotenv')
 const app = require('./app')
 
+// dotenv.config()
 
+const { DB_HOST } = process.env;
 
-dotenv.config()
-
-const { DB_HOST } = process.env
-
-mongoose.set('strictQuery', true)
+mongoose.set('strictQuery', true);
 
 mongoose.connect(DB_HOST)
   .then(() => {
