@@ -1,5 +1,5 @@
 const { Schema, model } = require("mongoose");
-
+const { handleMongooseError } = require("../routes/api/helpers");
 
 const contactSchema = new Schema({
     name: {
@@ -17,6 +17,8 @@ const contactSchema = new Schema({
         default: false,
       },
 })
+
+contactSchema.post("save", handleMongooseError);
 
 const Contact = model("contact", contactSchema);
 

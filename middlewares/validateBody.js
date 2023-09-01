@@ -2,7 +2,7 @@ const { HttpError } = require("../routes/api/helpers");
 
 const validateBody = schema => {
     const func = (req, res, next) => {
-        const {error} = postSchema.validate(req.body);
+        const {error} = schema.validate(req.body);
             if(error) {
             next(HttpError(400, error.message));
         }
