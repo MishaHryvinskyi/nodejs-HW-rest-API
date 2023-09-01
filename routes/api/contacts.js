@@ -18,6 +18,6 @@ router.delete('/:id', isValidId, ctrl.deleteDyId)
 
 router.put('/:id', isValidId, validateBody(schema.putSchema), ctrl.updateById);
 
-router.patch('/:id/favorie', isValidId, validateBody(schema.updateFavoriteSchema), ctrl.updateFavorite)
+router.patch('/:id/favorite', isValidId, validateBody(schema.updateFavoriteSchema), ctrl.updateFavorite)
 
 module.exports = router;
