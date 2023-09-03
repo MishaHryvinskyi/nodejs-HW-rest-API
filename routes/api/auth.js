@@ -8,6 +8,10 @@ const {validateBody} = require("../../middlewares");
 
 const {schemas} = require("../../models/user");
 
+// signup
 router.post("/register", validateBody(schemas.registerSchema), ctrl.register);
+
+// signin
+router.post("/login", validateBody(schemas.loginSchema), ctrl.login)
 
 module.exports = router;
