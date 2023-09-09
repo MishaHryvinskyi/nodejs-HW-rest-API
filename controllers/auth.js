@@ -53,7 +53,30 @@ const verifyEmail = async(req, res) => {
     res.json({
         message: "Email verify success"
     })
-}
+};
+
+const resendVerifyEmail = async(req, res) => {
+    const {email} = req.body;
+    const user = await User.findOne({email});
+    if(!user) {
+        throw HttpError(401, "Email not found");
+    }
+    if(user.verify) {
+        throw HttpError(401, "Email already veryfy");
+    }
+
+    const verifyEmail = {
+        to: email,
+        subject: "Verifu email",
+        html: `<a target="_blank" href="${BASE_URL}/api/auth/verify/${user.verificationToken}">Click verify email</a>`,
+    };
+
+    await sendEmail(verifyEmail);
+
+    res.json({
+        message: "Verify email send success"
+    })
+};
 
 const login = async(req, res) => {
     const {email, password} = req.body;
@@ -126,4 +149,5 @@ module.exports = {
     logout: ctrlWrapper(logout),
     updateAvatar: ctrlWrapper(updateAvatar),
     verifyEmail: ctrlWrapper(verifyEmail),
+    resendVerifyEmail: ctrlWrapper(resendVerifyEmail),
 }
